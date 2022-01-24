@@ -34,6 +34,8 @@ from GSProtocolHandlerVers1 import GSProtocolHandlerVers1
 from LogDataParserVers1 import LogDataParserVers1
 from GSProtocolHandlerVers2 import GSProtocolHandlerVers2
 from LogDataParserVers2 import LogDataParserVers2
+from GSProtocolHandlerVers3 import GSProtocolHandlerVers3
+from LogDataParserVers3 import LogDataParserVers3
 from RS232Connection import RS232Connection
 from SimulatedConnection import SimulatedConnection
 from InvalidConnection import InvalidConnection
@@ -48,6 +50,7 @@ class GammaCommands():
 		self._protocolhandler = {
 			"v1":		GSProtocolHandlerVers1,
 			"v2":		GSProtocolHandlerVers2,
+			"v3":		GSProtocolHandlerVers3,
 		}[args["protocol"]]
 		self._conn = None
 		self._device = None
@@ -127,6 +130,7 @@ class GammaCommands():
 		parserclass = {
 			"v1":		LogDataParserVers1,
 			"v2":		LogDataParserVers2,
+			"v3":		LogDataParserVers3,
 		}[self._args["protocol"]]
 		parserclass(logdata, backend).parse(logsize)
 		backend.close()

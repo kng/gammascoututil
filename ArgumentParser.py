@@ -41,7 +41,7 @@ class ArgumentParser():
 	def __init__(self):
 		self._parser = FriendlyArgumentParser(prog = sys.argv[0], description = "Tool to communicate with Gamma Scout geiger counters and read out the radiation log", add_help = False)
 		self._parser.add_argument("-d", "--device", metavar = "device", type = str, default = "/dev/ttyUSB0", help = "Specifies the device that the Gamma Scout is connected to. For debugging purposes, 'sim' may be specified to include simulation sources. Default is %(default)s")
-		self._parser.add_argument("-p", "--protocol", metavar = "version", type = str, choices = [ "v1", "v2" ], default = "v2", help = "Specifies the device protocol the connected Gamma Scout uses. Older models use v1 while newer versions use v2. Possible options are %(choices)s, default is %(default)s")
+		self._parser.add_argument("-p", "--protocol", metavar = "version", type = str, choices = [ "v1", "v2", "v3" ], default = "v2", help = "Specifies the device protocol the connected Gamma Scout uses. Older models use v1 while newer versions use v2. Possible options are %(choices)s, default is %(default)s")
 		self._parser.add_argument("--simulate", action = "store_true", help = "Do not connect to a real Gamma Scout device, but connect to a simulator (device name should be UNIX socket)")
 		self._parser.add_argument("--force", action = "store_true", help = "Allow execution of commands that are not usually needed by the user (you should only use this if you know what you're doing)")
 		self._parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Show mode logging info. May be specified multiple times to increasse verbosity")

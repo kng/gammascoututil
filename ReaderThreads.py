@@ -75,6 +75,9 @@ class RS232ReaderThread(threading.Thread):
 			except select.error as e:
 				self._log.debug("Read returned from kernel with error: [%d] %s" % (len(e.args), str(e)))
 				continue
+			except TypeError as e:
+				self._log.debug("TypeError: [%d] %s" % (len(e.args), str(e)))
+				continue
 			if len(data) == 0:
 				continue
 			self._rxdata(data)

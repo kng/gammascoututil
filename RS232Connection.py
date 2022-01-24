@@ -34,6 +34,7 @@ class RS232Connection(GSConnection):
 		baudrate = {
 			"v1":		2400,
 			"v2":		9600,
+			"v3":		460800,
 		}[args["protocol"]]
 		self._conn = serial.Serial(args["device"], baudrate = baudrate, bytesize = 7, parity = "E", stopbits = 1, timeout = 0.1)
 		self._rxthread = RS232ReaderThread(self._conn, self._rxbuf.push)
