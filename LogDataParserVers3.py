@@ -60,58 +60,62 @@ class LogDataParserVers3(LogDataParser):
 					cts = self._expcts(data[2 : 4])
 					self._log.debug("0x%x: Gap: %d:%02d:%02d, Cts: %d, CPM: %.1f" % (self._offset, gap // 3600, gap % 3600 // 60, gap % 60, cts, cts / gap * 60))
 					self._gotcounts(gap, cts)
-				elif peek == 0x0c:
+				elif peek == 0x0d:
 					self._log.debug("0x%x: Interval 10 seconds" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 10
-				elif peek == 0x0b:
+				elif peek == 0x0c:
 					self._log.debug("0x%x: Interval 30 Seconds" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 30
-				elif peek == 0x0a:
+				elif peek == 0x0b:
 					self._log.debug("0x%x: Interval 1 minute" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 60
-				elif peek == 0x09:
+				elif peek == 0x0a:
 					self._log.debug("0x%x: Interval 2 minutes" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 2 * 60
-				elif peek == 0x08:
+				elif peek == 0x09:
 					self._log.debug("0x%x: Interval 5 minutes" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 5 * 60
-				elif peek == 0x07:
+				elif peek == 0x08:
 					self._log.debug("0x%x: Interval 10 minutes" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 10 * 60
-				elif peek == 0x06:
+				elif peek == 0x07:
 					self._log.debug("0x%x: Interval 30 minutes" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 30 * 60
-				elif peek == 0x05:
+				elif peek == 0x06:
 					self._log.debug("0x%x: Interval 1 hour" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 1 * 3600
-				elif peek == 0x04:
+				elif peek == 0x05:
 					self._log.debug("0x%x: Interval 2 hours" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 2 * 3600
-				elif peek == 0x03:
+				elif peek == 0x04:
 					self._log.debug("0x%x: Interval 12 hours" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 12 * 3600
-				elif peek == 0x02:
+				elif peek == 0x03:
 					self._log.debug("0x%x: Interval 1 day" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 1 * 86400
-				elif peek == 0x01:
+				elif peek == 0x02:
 					self._log.debug("0x%x: Interval 3 days" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 3 * 86400
-				elif peek == 0x00:
+				elif peek == 0x01:
 					self._log.debug("0x%x: Interval 7 days" % (self._offset))
 					self._nextbytes(1)
 					self._interval = 7 * 86400
+				elif peek == 0x00:
+					self._log.debug("Interval disabled")
+					self._nextbytes(1)
+					self._interval = 0
 				elif peek == 0xf3:
 					self._log.warn("0x%x: Unknown command 0xf3" % (self._offset))
 					self._nextbytes(1)

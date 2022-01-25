@@ -227,14 +227,15 @@ class GSProtocolHandlerVers3(GSProtocolHandler):
 			nextmsg = self._conn.waitforline()
 			if nextmsg is None:
 				break
-			if linecnt == 2:
+			# first line says: GAMMA-SCOUT SoftCal gueltig
+			if linecnt == 3:
 				if not GSProtocolHandlerVers3._config_firstline_regex.match(nextmsg):
 					raise CommunicationException("unparsable", "First configuration data line format unexpected (received '%s')." % (nextmsg))
 				log.append(int(GSProtocolHandlerVers3._config_firstline_regex[1], 16))
 				log.append(int(GSProtocolHandlerVers3._config_firstline_regex[2], 16))
 				nextmsg = GSProtocolHandlerVers3._config_firstline_regex[3]
 
-			if linecnt >= 2:
+			if linecnt >= 3:
 				logdata = [ int(nextmsg[2 * i : 2 * i + 2], 16) for i in range(len(nextmsg) // 2) ]
 				log += logdata
 		return bytes(log)
